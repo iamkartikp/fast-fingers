@@ -5,24 +5,36 @@ export default function Content() {
     const [word, setEnteredWords] = useState("");
     let [index, setIndex] = useState(0);
     let [score, setScore] = useState(0);
+    let [seconds, setSeconds] = useState(60);
+    let [accuracy, setAccuracy] = useState(0);
 
     const handleEnteredWords = (e) => {
         let word1 = e.target.value
         if(e.key === " ") {
             setEnteredWords(word1.trim())
-            console.log(word1.trim().split(" ")[word1.trim().split(" ").length-1], words.split(" ")[index])
-            if(word1.trim().split(" ")[word1.trim().split(" ").length-1] === words.split(" ")[index])
-                setScore(score+1)
+            if(word1.trim().split(" ")[word1.trim().split(" ").length-1] === words.split(" ")[index]) {
+                setScore(score+1);
+                document.querySelector(`.class${index}`).classList.add('active');
+            } else {
+                document.querySelector(`.class${index}`).classList.add('inactive');
+            }
             setIndex(index+1)
         }
     }
 
     return (
-        <div>
-            <h2 className="text-capitalize">test your typing skills</h2>
-            <h4>{words}</h4>
-            <h4>Score: {score}</h4>
-            <input onKeyUp={handleEnteredWords} />
+        <div className="d-flex flex-column align-items-center justify-content-center m-2">
+            <p className="text-uppercase">typing speed test</p>
+            <h2 className="text-capitalize fs-1 fw-bold">test your typing skills</h2>
+            <p className="w-75 fs-5 words">
+                {words.split(" ").map((word, i) => <span className={`class${i}`} key={i}> {word}</span>)}
+            </p>
+            <div className="d-flex justify-content-around w-75">
+                <span className="d-flex flex-column align-items-center justify-content-center rounded-border"> <p className="fs-4">{seconds}</p> <p>seconds</p></span>
+                <span className="d-flex flex-column align-items-center justify-content-center rounded-border"> <p className="fs-4">{score}</p> <p>score</p></span>
+                <span className="d-flex flex-column align-items-center justify-content-center rounded-border"> <p className="fs-4">{accuracy} %</p> <p>accuracy</p></span>
+            </div>
+            <input className="form-control w-50 mt-4" placeholder="Start typing here..." onKeyUp={handleEnteredWords} />
         </div>
     )
 }

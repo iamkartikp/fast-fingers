@@ -1,0 +1,23 @@
+:root {
+    --primary-yellow: #ffd000;
+    --background-color: #f6f6f7;
+}
+
+body {
+    background-color: var(--background-color) !important;
+}
+
+.rounded-border {
+    border-radius: 50%;
+    border: 3px solid var(--primary-yellow);
+    width: 100px;
+}
+
+.active {
+    background-color: #52d052;
+}
+
+.inactive {
+    background-color: #f1584d;
+}
+
