@@ -56,13 +56,13 @@ export default function Content() {
     const calculateFinalScore = () => {
         setModal(true);
         setTimerStart(false);
-        setSeconds(60);
-        setIndex(0);
-        setScore(0);
     }
 
     const setModalClose = () => {
-        setModal(false)
+        setModal(false);
+        setSeconds(60);
+        setIndex(0);
+        setScore(0);
     }
 
     return (
