@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
 :root {
     --primary-yellow: #ffd000;
     --background-color: #f6f6f7;
+}
+
+* {
+    font-family: 'Roboto Slab', serif;
 }
 
 body {
@@ -21,3 +27,6 @@ body {
     background-color: #f1584d;
 }
 
+.form-control {
+    font-size: 1.2rem !important;
+}
