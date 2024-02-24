@@ -14,7 +14,6 @@ const style = {
 
 export default function ModalComponent(props) {
     const { isModalOpen, score, index, setModalClose } = props;
-    console.log(score, index)
     return (
         <Modal
             open={isModalOpen}

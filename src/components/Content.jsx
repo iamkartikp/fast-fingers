@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import ModalComponent from './common/Modal';
 import useSpeechSynthesis from 'react-speech-kit/dist/useSpeechSynthesis';
+import content from "../assets/content.json";
 
 export default function Content() {
-    const [words] = useState("Something wasn't right The farmer's market buzzed around him, his arms heavy with his cloth totes filled to the brim. There'd been a lovely selection of candles this morning. Now he waited among the sea of humanity in the square for the curly-haired vendor to wrap his fresh-cut flowers. An acoustic band played in the middle of the market, twangy notes bouncing off tents and muddled with the voices of the crowd. He reached out for his wrapped bouquet with a smile while alarm bells rang in his head. It seemed like a pleasant day- from all the available information, it was. Yet every time he turned a corner, every time he bumped into someone and mumbled his apologies, he felt as if eyes were burning into the back of his skull. He checked his breath rate and found it functionally normal. He tested his blinking mod and found no concerns. Still, as he weaved through the market, he zoned in on the port-o-johns and stood in line as calmly as he could.");
+    const [words, setWords] = useState("");
+    const [difficulty, setDifficulty] = useState("1");
     let [index, setIndex] = useState(0);
     let [score, setScore] = useState(0);
     let [seconds, setSeconds] = useState(60);
@@ -20,7 +22,7 @@ export default function Content() {
             }
         }
         if (e.key === " ") {
-            speak({ text: words.split(" ")[index+1] })
+            speak({ text: words.split(" ")[index + 1] })
             // setEnteredWords(word1.trim())
             if (word1.trim().split(" ")[word1.trim().split(" ").length - 1] === words.split(" ")[index]) {
                 setScore(score + 1);
@@ -31,6 +33,10 @@ export default function Content() {
             setIndex(index + 1)
         }
     }
+
+    useEffect(() => {
+        setWords(content[difficulty][Math.floor(Math.random()*6)])
+    }, [difficulty])
 
     useEffect(() => {
         if (isTimerStart) {
@@ -61,9 +67,21 @@ export default function Content() {
         window.location.reload();
     }
 
+    const handleChangeEvent = (e) => {
+        const value = e.target.value;
+        setDifficulty(value);
+    }
+
     return (
         <div className="d-flex flex-column align-items-center justify-content-center m-2">
-            <h2 className="text-uppercase">typing speed test</h2>
+            <h1 className="text-uppercase">typing speed test</h1>
+
+            <h5 className="text-uppercase mt-5">Select Difficulty</h5>
+            <select className="form-select w-25" id="difficulty" onChange={handleChangeEvent}>
+                <option value="1">Easy</option>
+                <option value="2">Medium</option>
+                <option value="3">Hard</option>
+            </select>
             <p className="w-75 fs-5 words my-2">
                 {words.split(" ").map((word, i) => <span className={`class${i}`} key={i}> {word}</span>)}
             </p>
