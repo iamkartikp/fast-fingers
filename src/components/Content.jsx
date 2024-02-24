@@ -10,7 +10,7 @@ export default function Content() {
     const [fluency, setFluency] = useState("");
     let [index, setIndex] = useState(0);
     let [score, setScore] = useState(0);
-    let [seconds, setSeconds] = useState(60);
+    let [seconds, setSeconds] = useState(5);
     let [isTimerStart, setTimerStart] = useState(false);
     let [isModalOpen, setModal] = useState(false);
     const { speak } = useSpeechSynthesis();
@@ -66,6 +66,12 @@ export default function Content() {
     }
 
     const setModalClose = () => {
+        const isLocalStorageSet = localStorage.getItem("score");
+        if (!isLocalStorageSet) {
+            localStorage.setItem("score", JSON.stringify({ playCount: 0, averageScore: 0 }));
+        }
+        const { playCount, averageScore } = JSON.parse(localStorage.getItem("score"));
+        localStorage.setItem("score", JSON.stringify({ playCount: playCount + 1, averageScore: (averageScore + score) / playCount }));
         window.location.reload();
     }
 
