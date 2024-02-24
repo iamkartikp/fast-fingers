@@ -10,7 +10,7 @@ export default function Content() {
     const [fluency, setFluency] = useState("");
     let [index, setIndex] = useState(0);
     let [score, setScore] = useState(0);
-    let [seconds, setSeconds] = useState(5);
+    let [seconds, setSeconds] = useState(60);
     let [isTimerStart, setTimerStart] = useState(false);
     let [isModalOpen, setModal] = useState(false);
     const { speak } = useSpeechSynthesis();

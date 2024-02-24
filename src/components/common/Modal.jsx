@@ -14,7 +14,7 @@ const style = {
 
 export default function ModalComponent(props) {
     const { isModalOpen, score, index, setModalClose, fluency } = props;
-    const { playCount, averageScore } = JSON.parse(localStorage.getItem("score"));
+    const { playCount, averageScore } = isModalOpen && JSON.parse(localStorage.getItem("score"));
     
     return (
         <Modal
