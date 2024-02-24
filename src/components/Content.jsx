@@ -7,6 +7,7 @@ import content from "../assets/content.json";
 export default function Content() {
     const [words, setWords] = useState("");
     const [difficulty, setDifficulty] = useState("1");
+    const [fluency, setFluency] = useState("");
     let [index, setIndex] = useState(0);
     let [score, setScore] = useState(0);
     let [seconds, setSeconds] = useState(60);
@@ -35,7 +36,7 @@ export default function Content() {
     }
 
     useEffect(() => {
-        setWords(content[difficulty][Math.floor(Math.random()*6)])
+        setWords(content[difficulty][Math.floor(Math.random() * 6)])
     }, [difficulty])
 
     useEffect(() => {
@@ -45,6 +46,7 @@ export default function Content() {
             }, 1000);
 
             if (seconds <= 0) {
+                handleFluency();
                 calculateFinalScore();
             }
 
@@ -72,6 +74,20 @@ export default function Content() {
         setDifficulty(value);
     }
 
+    function handleFluency() {
+        if (score < 20) {
+            setFluency("Slow");
+        } else if (score < 40) {
+            setFluency("Average");
+        } else if (score < 60) {
+            setFluency("Fluent");
+        } else if (score < 80) {
+            setFluency("Fast");
+        } else {
+            setFluency("Pro");
+        }
+    }
+
     return (
         <div className="d-flex flex-column align-items-center justify-content-center m-2">
             <h1 className="text-uppercase">typing speed test</h1>
@@ -90,7 +106,7 @@ export default function Content() {
                 <span className="d-flex flex-column align-items-center justify-content-center rounded-border"> <p className="fs-4">{score}</p> <p>score</p></span>
             </div>
             <input className="form-control w-50 mt-4" placeholder="Start typing here..." onKeyUp={handleEnteredWords} />
-            <ModalComponent isModalOpen={isModalOpen} score={score} index={index} setModalClose={setModalClose} />
+            <ModalComponent isModalOpen={isModalOpen} fluency={fluency} score={score} index={index} setModalClose={setModalClose} />
         </div>
     )
 }

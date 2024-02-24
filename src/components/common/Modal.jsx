@@ -13,7 +13,8 @@ const style = {
 };
 
 export default function ModalComponent(props) {
-    const { isModalOpen, score, index, setModalClose } = props;
+    const { isModalOpen, score, index, setModalClose, fluency } = props;
+    
     return (
         <Modal
             open={isModalOpen}
@@ -22,6 +23,7 @@ export default function ModalComponent(props) {
         >
             <Box sx={style} className="d-flex flex-column align-items-center justify-content-center">
                 <Typography id="modal-modal-title" variant="h6" component="h2">
+                    Your Fluency: <b>{fluency}</b>
                     Score: <b>{score}</b> <small>words/min</small> <br />
                     Accuracy: <b>{((score / index) * 100).toFixed(2)}</b> <small>%</small>
                 </Typography>
